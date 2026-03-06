@@ -43,9 +43,6 @@ x86/
 .idea/
 *.sln.iml
 
-# wwwroot (published files)
-wwwroot/
-
 # Logs
 *.log
 logs/
