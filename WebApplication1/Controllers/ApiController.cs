@@ -49,6 +49,24 @@ namespace WebApplication1.Controllers
 
                 return Ok(settings);
             }
+            catch (HttpRequestException httpEx)
+            {
+                _logger.LogError(httpEx, "HTTP ошибка при получении настроек");
+
+                if (httpEx.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return StatusCode(404, new
+                    {
+                        error = "Экземпляр не найден",
+                        message = "Проверьте правильность учетных данных"
+                    });
+                }
+
+                return StatusCode(500, new
+                {
+                    message = "Ошибка внешнего API"
+                });
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error getting settings");
@@ -80,6 +98,24 @@ namespace WebApplication1.Controllers
                     "getStateInstance");
 
                 return Ok(state);
+            }
+            catch (HttpRequestException httpEx)
+            {
+                _logger.LogError(httpEx, "HTTP ошибка при получении состояния");
+
+                if (httpEx.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return StatusCode(404, new
+                    {
+                        error = "Экземпляр не найден",
+                        message = "Проверьте правильность учетных данных"
+                    });
+                }
+
+                return StatusCode(500, new
+                {
+                    message = "Ошибка внешнего API"
+                });
             }
             catch (Exception ex)
             {
@@ -127,6 +163,24 @@ namespace WebApplication1.Controllers
                     requestData);
 
                 return Ok(result);
+            }
+            catch (HttpRequestException httpEx)
+            {
+                _logger.LogError(httpEx, "HTTP ошибка при отправке сообщения");
+
+                if (httpEx.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return StatusCode(404, new
+                    {
+                        error = "Экземпляр не найден",
+                        message = "Проверьте правильность учетных данных"
+                    });
+                }
+
+                return StatusCode(500, new
+                {
+                    message = "Ошибка отправки сообщения"
+                });
             }
             catch (Exception ex)
             {
@@ -176,6 +230,24 @@ namespace WebApplication1.Controllers
                     requestData);
 
                 return Ok(result);
+            }
+            catch (HttpRequestException httpEx)
+            {
+                _logger.LogError(httpEx, "HTTP ошибка при отправке файла");
+
+                if (httpEx.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return StatusCode(404, new
+                    {
+                        error = "Экземпляр не найден",
+                        message = "Проверьте правильность учетных данных"
+                    });
+                }
+
+                return StatusCode(500, new
+                {
+                    message = "Ошибка отправки файла"
+                });
             }
             catch (Exception ex)
             {
