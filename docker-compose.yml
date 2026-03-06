@@ -2,16 +2,12 @@ version: '3.8'
 
 services:
   whatsapp-admin:
-    build: .
-    container_name: whatsapp-admin
-    ports:
-      - "80:80"
+    build:
+      context: .
+      network: host
+    container_name: green-api
+    network_mode: host
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s

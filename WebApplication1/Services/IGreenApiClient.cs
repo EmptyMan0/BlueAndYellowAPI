@@ -1,5 +1,8 @@
 ﻿namespace WebApplication1.Services;
 
+/// <summary>
+/// Интерфейс клиента для работы с Green API
+/// </summary>
 public interface IGreenApiClient
 {
     Task<TResponse> GetAsync<TResponse>(string idInstance, string apiTokenInstance, string endpoint);

@@ -4,6 +4,9 @@ using System.Text.Json;
 
 namespace WebApplication1.Services
 {
+    /// <summary>
+    /// Клиент для взаимодействия с Green API
+    /// </summary>
     public class GreenApiClient : IGreenApiClient
     {
         private readonly HttpClient _httpClient;
@@ -16,6 +19,9 @@ namespace WebApplication1.Services
             _logger = logger;
         }
 
+        /// <summary>
+        /// Выполняет GET запрос к инстансу Green API
+        /// </summary>
         public async Task<TResponse> GetAsync<TResponse>(
             string idInstance,
             string apiTokenInstance,
@@ -38,6 +44,9 @@ namespace WebApplication1.Services
                 ?? throw new JsonException("Failed to deserialize response");
         }
 
+        /// <summary>
+        /// Выполняет POST запрос с JSON данными к указанному инстансу Green API
+        /// </summary>
         public async Task<TResponse> PostAsync<TRequest, TResponse>(
             string idInstance,
             string apiTokenInstance,
@@ -64,6 +73,9 @@ namespace WebApplication1.Services
                 ?? throw new JsonException("Failed to deserialize response");
         }
 
+        /// <summary>
+        /// Выполняет загрузку файла через multipart/form-data запрос к Green API
+        /// </summary>
         public async Task<TResponse> UploadFileAsync<TResponse>(
             string idInstance,
             string apiTokenInstance,

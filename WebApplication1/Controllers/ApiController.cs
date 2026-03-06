@@ -6,9 +6,11 @@ using WebApplication1.Services;
 
 namespace WebApplication1.Controllers
 {
+    /// <summary>
+    /// Контроллер для работы с Green API
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
-    
     public class ApiController : ControllerBase
     {
         private readonly IGreenApiClient _greenApiClient;
@@ -22,6 +24,12 @@ namespace WebApplication1.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Получение текущих настроек инстанса.
+        /// </summary>
+        /// <param name="idInstance">Уникальный идентификатор инстанса</param>
+        /// <param name="apiTokenInstance">Токен авторизации инстанса</param>
+        /// <returns>Настройки экземпляра или ошибка</returns>
         [HttpGet("/getSettings")]
         public async Task<IActionResult> GetSettingsAsync(
             [FromQuery] string idInstance,
@@ -48,6 +56,12 @@ namespace WebApplication1.Controllers
             }
         }
 
+        /// <summary>
+        /// Получение состояния инстанса.
+        /// </summary>
+        /// <param name="idInstance">Уникальный идентификатор инстанса</param>
+        /// <param name="apiTokenInstance">Токен авторизации инстанса</param>
+        /// <returns>Состояние инстанса или ошибка</returns>
         [HttpGet("/getStateInstance")]
         public async Task<IActionResult> GetStateInstanceAsync(
             [FromQuery] string idInstance,
@@ -74,6 +88,11 @@ namespace WebApplication1.Controllers
             }
         }
 
+        /// <summary>
+        /// Отправка текстового сообщения в личный или групповой чат.
+        /// </summary>
+        /// <param name="request">Данные для отправки сообщения (чат, текст, цитата)</param>
+        /// <returns>Идентификатор отправленного сообщения или ошибка</returns>
         [HttpPost("/sendMessage")]
         public async Task<IActionResult> SendMessageAsync([FromBody] SendMessageRequest request)
         {
@@ -116,6 +135,11 @@ namespace WebApplication1.Controllers
             }
         }
 
+        /// <summary>
+        /// Отправка файла, загружаемого по ссылке.
+        /// </summary>
+        /// <param name="request">Данные для отправки файла (чат, URL, имя файла, описание)</param>
+        /// <returns>Идентификатор отправленного сообщения или ошибка</returns>
         [HttpPost("/sendFileByUrl")]
         public async Task<IActionResult> SendFileByUrlAsync([FromBody] SendFileByUrlRequest request)
         {
