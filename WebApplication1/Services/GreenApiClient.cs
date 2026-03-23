@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using WebApplication1.Settings;
 
 namespace WebApplication1.Services
 {
@@ -11,12 +12,12 @@ namespace WebApplication1.Services
     {
         private readonly HttpClient _httpClient;
         private readonly ILogger<GreenApiClient> _logger;
-        private const string BaseUrl = "https://4100.api.green-api.com";
-
-        public GreenApiClient(HttpClient httpClient, ILogger<GreenApiClient> logger)
+        private readonly ApiSettings _apiSettings;
+        public GreenApiClient(HttpClient httpClient, ILogger<GreenApiClient> logger, ApiSettings apiSettings)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _apiSettings = apiSettings; 
         }
 
         /// <summary>
@@ -27,7 +28,7 @@ namespace WebApplication1.Services
             string apiTokenInstance,
             string endpoint)
         {
-            var url = $"{BaseUrl}/waInstance{idInstance}/{endpoint}/{apiTokenInstance}";
+            var url = $"{_apiSettings.BaseUrl}/waInstance{idInstance}/{endpoint}/{apiTokenInstance}";
 
             _logger.LogInformation("GET Request: {Url}", url);
 
@@ -53,7 +54,7 @@ namespace WebApplication1.Services
             string endpoint,
             TRequest data)
         {
-            var url = $"{BaseUrl}/waInstance{idInstance}/{endpoint}/{apiTokenInstance}";
+            var url = $"{_apiSettings.BaseUrl}/waInstance{idInstance}/{endpoint}/{apiTokenInstance}";
 
             var json = JsonSerializer.Serialize(data);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -85,7 +86,7 @@ namespace WebApplication1.Services
             string chatId,
             string? caption = null)
         {
-            var url = $"{BaseUrl}/waInstance{idInstance}/{endpoint}/{apiTokenInstance}";
+            var url = $"{_apiSettings.BaseUrl}/waInstance{idInstance}/{endpoint}/{apiTokenInstance}";
 
             using var multipartContent = new MultipartFormDataContent();
 

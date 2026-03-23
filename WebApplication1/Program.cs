@@ -1,4 +1,6 @@
-﻿using WebApplication1.Services;
+﻿using Microsoft.Extensions.Configuration;
+using WebApplication1.Services;
+using WebApplication1.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,8 +8,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient();
+
+builder.Services.AddSingleton(builder.Configuration.GetSection("ApiSettings").Get<ApiSettings>());
+
 builder.Services.AddScoped<IGreenApiClient, GreenApiClient>();
 builder.Services.AddHttpContextAccessor();
+
+
 
 builder.Services.AddCors(options =>
 {
